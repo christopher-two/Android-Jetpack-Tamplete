@@ -7,11 +7,10 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
-import org.override.tamplete.feature.navigation.navigator.HomeNavigator
+import org.override.tamplete.feature.navigation.controllers.NavigationController
+import org.override.tamplete.feature.navigation.routes.RouteGlobal
 
-class HomeViewModel(
-    private val homeNavigator: HomeNavigator
-) : ViewModel() {
+class HomeViewModel(private val navigationController: NavigationController) : ViewModel() {
 
     private var hasLoadedInitialData = false
 
@@ -32,14 +31,35 @@ class HomeViewModel(
     fun onAction(action: HomeAction) {
         when (action) {
             is HomeAction.OnTabSelected -> {
-                homeNavigator.switchTab(action.tab)
+                navigationController.switchTab(action.tab)
                 _state.update { it.copy(selectedTab = action.tab) }
             }
+
             is HomeAction.OnFabClick -> {
                 _state.update { it.copy(snackbarMessage = "FAB clicked!") }
             }
+
             is HomeAction.OnSnackbarDismissed -> {
                 _state.update { it.copy(snackbarMessage = null) }
+            }
+
+            HomeAction.OnSettingsClick -> {
+                navigationController.navigateTo(RouteGlobal.Settings)
+            }
+
+            HomeAction.OnBackPressed -> {
+                // Mostrar diálogo de confirmación para salir
+                _state.update { it.copy(showExitDialog = true) }
+            }
+
+            HomeAction.OnExitConfirmed -> {
+                // Cerrar diálogo - la Activity manejará la salida
+                _state.update { it.copy(showExitDialog = false) }
+            }
+
+            HomeAction.OnExitCancelled -> {
+                // Solo cerrar el diálogo
+                _state.update { it.copy(showExitDialog = false) }
             }
         }
     }

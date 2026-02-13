@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
-import org.override.tamplete.core.data.local.AppDatabase
+import org.override.tamplete.main.AppDatabase
 
 /**
  * MÓDULO DE KOIN PARA LA CONFIGURACIÓN DE ROOM

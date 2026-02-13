@@ -1,6 +1,5 @@
-package org.override.tamplete.core.data.local
+package org.override.tamplete.main
 
-import androidx.room.Dao
 import androidx.room.Database
 import androidx.room.Entity
 import androidx.room.PrimaryKey

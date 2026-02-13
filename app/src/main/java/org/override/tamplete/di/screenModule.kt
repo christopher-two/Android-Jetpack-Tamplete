@@ -15,12 +15,14 @@ import org.override.tamplete.feature.auth.presentation.AuthRoot
 import org.override.tamplete.feature.home.presentation.HomeRoot
 import org.override.tamplete.feature.navigation.routes.RouteGlobal
 import org.override.tamplete.feature.navigation.routes.RouteHome
+import org.override.tamplete.feature.settings.presentation.SettingsRoot
 
 @OptIn(KoinExperimentalAPI::class)
 val screenModule: Module
     get() = module {
         navigation<RouteGlobal.Auth> { AuthRoot(koinViewModel()) }
         navigation<RouteGlobal.Home> { HomeRoot(koinViewModel()) }
+        navigation<RouteGlobal.Settings> { SettingsRoot(koinViewModel()) }
 
         navigation<RouteHome.Pantalla1> {
             Box(

@@ -72,7 +72,10 @@ class ThemePreferencesRepository(private val context: Context) {
      */
     suspend fun updateSeedColor(color: Color) {
         context.themeDataStore.updateData { current ->
-            current.copy(seedColor = color.toArgb().toLong())
+            // Convertir Color a ARGB asegurando que tenga alpha completo
+            val argb = color.toArgb()
+            val argbLong = argb.toLong() and 0xFFFFFFFFL
+            current.copy(seedColor = argbLong)
         }
     }
 

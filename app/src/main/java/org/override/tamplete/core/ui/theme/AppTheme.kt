@@ -47,7 +47,7 @@ fun AppTheme(
 ) {
     val dynamicThemeState = rememberDynamicMaterialThemeState(
         seedColor = seedColor,
-        isDark = isDark,
+        isDark = if (useDynamicColors) isDark else isSystemInDarkTheme(),
         style = style,
         contrastLevel = contrastLevel,
         specVersion = ColorSpec.SpecVersion.SPEC_2025

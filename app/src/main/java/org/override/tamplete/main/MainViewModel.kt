@@ -35,6 +35,20 @@ class MainViewModel(
     init {
         // Inicializar automáticamente la aplicación al crear el ViewModel
         onAction(MainAction.InitializeApp)
+
+        // Observar cambios en las preferencias del tema continuamente
+        observeThemeChanges()
+    }
+
+    /**
+     * Observa cambios en las preferencias del tema en tiempo real
+     */
+    private fun observeThemeChanges() {
+        viewModelScope.launch {
+            themePreferencesRepository.themePreferencesFlow.collect { preferences ->
+                _state.update { it.copy(themePreferences = preferences) }
+            }
+        }
     }
 
     /**

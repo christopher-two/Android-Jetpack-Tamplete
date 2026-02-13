@@ -4,6 +4,7 @@ import org.koin.dsl.module
 import org.koin.plugin.module.dsl.viewModel
 import org.override.tamplete.feature.auth.presentation.AuthViewModel
 import org.override.tamplete.feature.home.presentation.HomeViewModel
+import org.override.tamplete.feature.settings.presentation.SettingsViewModel
 import org.override.tamplete.main.MainViewModel
 
 /**
@@ -20,6 +21,12 @@ val viewModelModule = module {
      */
     viewModel<MainViewModel>()
     viewModel<AuthViewModel>()
+    viewModel<SettingsViewModel>()
+
+    /**
+     * HomeViewModel - ViewModel de Home
+     * Recibe NavigationController por DI
+     */
     viewModel<HomeViewModel>()
 }
 
