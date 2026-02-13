@@ -10,9 +10,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.override.tamplete.feature.auth.domain.model.OnboardingDefaults
 import org.override.tamplete.feature.auth.domain.usecase.LoginUseCase
+import org.override.tamplete.feature.navigation.controllers.NavigationController
+import org.override.tamplete.feature.navigation.routes.RouteGlobal
 
 class AuthViewModel(
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val navigationController: NavigationController
 ) : ViewModel() {
 
     private var hasLoadedInitialData = false
@@ -71,7 +74,7 @@ class AuthViewModel(
                     _state.update {
                         it.copy(isLoading = false)
                     }
-                    // La navegación se manejará en el Root observando el estado de sesión
+                    navigationController.navigateTo(RouteGlobal.Home)
                 }
                 .onFailure { exception ->
                     _state.update {

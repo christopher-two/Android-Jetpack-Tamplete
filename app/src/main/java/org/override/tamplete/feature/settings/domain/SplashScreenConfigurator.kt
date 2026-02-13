@@ -47,13 +47,6 @@ object SplashScreenConfigurator {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             // Si se usan colores dinámicos, no modificar (usa el del sistema)
             if (!preferences.useDynamicColors) {
-                // Usar el color semilla como fondo del splash
-                val backgroundColor = if (preferences.isDarkMode) {
-                    Color.Companion.Black
-                } else {
-                    Color.Companion.White
-                }
-
                 // Configurar el color de fondo
                 splashScreen.setOnExitAnimationListener { splashScreenView ->
                     // Animación de salida personalizada si se necesita
@@ -88,31 +81,5 @@ object SplashScreenConfigurator {
         // Usar API deprecated pero necesaria para compatibilidad
         window.statusBarColor = systemBarsColor
         window.navigationBarColor = systemBarsColor
-    }
-
-    /**
-     * Aplica el color semilla a la SplashScreen (Android 12+)
-     * Útil cuando el usuario cambia el color del tema
-     */
-    @Suppress("DEPRECATION")
-    fun applySeedColor(
-        activity: Activity,
-        seedColor: Color,
-        isDark: Boolean
-    ) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val window = activity.window
-
-            // Configurar color de fondo basado en el color semilla
-            val backgroundColor = if (isDark) {
-                // Para modo oscuro, usar una versión oscurecida del color
-                seedColor.copy(alpha = 0.1f)
-            } else {
-                // Para modo claro, usar una versión clara del color
-                seedColor.copy(alpha = 0.05f)
-            }
-
-            window.statusBarColor = backgroundColor.toArgb()
-        }
     }
 }
