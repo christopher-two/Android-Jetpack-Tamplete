@@ -2,6 +2,7 @@ package org.override.tamplete.di
 
 import org.koin.dsl.module
 import org.koin.plugin.module.dsl.viewModel
+import org.override.tamplete.feature.auth.presentation.AuthViewModel
 import org.override.tamplete.main.MainViewModel
 
 /**
@@ -17,5 +18,6 @@ val viewModelModule = module {
      * viewModel: Crea instancias con lifecycle-aware
      */
     viewModel<MainViewModel>()
+    viewModel<AuthViewModel>()
 }
 

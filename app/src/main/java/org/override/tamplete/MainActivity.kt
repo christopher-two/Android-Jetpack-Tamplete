@@ -15,6 +15,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.koin.compose.viewmodel.koinViewModel
 import org.override.tamplete.core.ui.theme.AppTheme
+import org.override.tamplete.feature.navigation.wrappers.RootNavigationWrapper
 import org.override.tamplete.feature.settings.presentation.SplashScreenConfigurator
 import org.override.tamplete.main.MainViewModel
 
@@ -59,16 +60,9 @@ class MainActivity : ComponentActivity() {
 
             // Aplicar tema con las preferencias del usuario
             AppTheme(preferences = state.themePreferences) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    if (state.isAuthenticated) {
-                        Text("Bienvenido, ${state.userName ?: "Usuario"}")
-                    } else {
-                        Text("Pantalla de inicio")
-                    }
-                }
+                RootNavigationWrapper(
+                    isLoggedIn = state.isAuthenticated
+                )
             }
         }
     }
