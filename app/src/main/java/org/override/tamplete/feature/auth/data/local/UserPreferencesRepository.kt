@@ -1,6 +1,7 @@
 package org.override.tamplete.feature.auth.data.local
 
 import android.content.Context
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
 import kotlinx.coroutines.flow.Flow
@@ -37,7 +38,7 @@ class UserPreferencesRepository(private val context: Context) : UserRepository {
         .catch { exception ->
             // Manejar errores de lectura
             if (exception is IOException) {
-                println("Error leyendo User DataStore: ${exception.message}")
+                Log.e("UserPrefsRepo", "❌ Error leyendo User DataStore: ${exception.message}")
                 emit(User.empty())
             } else {
                 throw exception
@@ -50,7 +51,9 @@ class UserPreferencesRepository(private val context: Context) : UserRepository {
      * @param user Usuario a guardar
      */
     override suspend fun saveUser(user: User) {
+        Log.d("UserPrefsRepo", "💾 Guardando usuario: ${user.name} (id=${user.id}, token=${user.token?.take(10)}...)")
         context.userDataStore.updateData { user }
+        Log.d("UserPrefsRepo", "✅ Usuario guardado exitosamente")
     }
 
     /**
@@ -121,7 +124,9 @@ class UserPreferencesRepository(private val context: Context) : UserRepository {
      */
     override fun isLoggedIn(): Flow<Boolean> {
         return userFlow.map { user ->
-            user.id.isNotEmpty() && user.token != null
+            val isLoggedIn = user.id.isNotEmpty() && user.token != null
+            Log.d("UserPrefsRepo", "🔍 Verificando sesión: id=${user.id.take(10)}, token=${user.token?.take(10)}, isLoggedIn=$isLoggedIn")
+            isLoggedIn
         }
     }
 

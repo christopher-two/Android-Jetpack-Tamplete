@@ -1,5 +1,6 @@
 package org.override.tamplete.main
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
@@ -38,6 +39,9 @@ class MainViewModel(
 
         // Observar cambios en las preferencias del tema continuamente
         observeThemeChanges()
+
+        // Observar cambios en el estado de autenticación continuamente
+        observeAuthenticationChanges()
     }
 
     /**
@@ -47,6 +51,21 @@ class MainViewModel(
         viewModelScope.launch {
             themePreferencesRepository.themePreferencesFlow.collect { preferences ->
                 _state.update { it.copy(themePreferences = preferences) }
+            }
+        }
+    }
+
+    /**
+     * Observa cambios en el estado de autenticación en tiempo real
+     * Esto permite detectar cuando el usuario inicia o cierra sesión
+     */
+    private fun observeAuthenticationChanges() {
+        viewModelScope.launch {
+            userRepository.isLoggedIn().collect { isLoggedIn ->
+                Log.d("MainViewModel", "🔄 Estado de autenticación cambió: isLoggedIn=$isLoggedIn")
+                _state.update {
+                    it.copy(isAuthenticated = isLoggedIn)
+                }
             }
         }
     }

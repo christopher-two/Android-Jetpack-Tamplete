@@ -1,10 +1,12 @@
 package org.override.tamplete.feature.navigation.wrappers
 
+import android.util.Log
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
@@ -21,13 +23,7 @@ fun RootNavigationWrapper(
 ) {
     val globalNavigator: GlobalNavigator = koinInject()
 
-    if (globalNavigator.rootBackStack.isEmpty()) {
-        if (isLoggedIn) {
-            globalNavigator.navigateTo(RouteGlobal.Home)
-        } else {
-            globalNavigator.navigateTo(RouteGlobal.Auth)
-        }
-    }
+    if (globalNavigator.rootBackStack.isEmpty() || isLoggedIn) globalNavigator.navigateTo(RouteGlobal.Home) else globalNavigator.navigateTo(RouteGlobal.Auth)
 
     val rootBackStack = globalNavigator.rootBackStack
 

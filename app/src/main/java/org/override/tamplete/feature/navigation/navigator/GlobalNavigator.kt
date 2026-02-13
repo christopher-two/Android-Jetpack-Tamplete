@@ -20,6 +20,10 @@ class GlobalNavigator {
         _rootBackStack.remove(route)
     }
 
+    fun clear() {
+        _rootBackStack.clear()
+    }
+
     fun navigateTo(route: RouteGlobal) {
         _rootBackStack.add(route)
     }

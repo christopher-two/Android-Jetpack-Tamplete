@@ -20,7 +20,13 @@ val viewModelModule = module {
      * viewModel: Crea instancias con lifecycle-aware
      */
     viewModel<MainViewModel>()
+
+    /**
+     * AuthViewModel - ViewModel de autenticación
+     * Recibe LoginUseCase por DI
+     */
     viewModel<AuthViewModel>()
+
     viewModel<SettingsViewModel>()
 
     /**
