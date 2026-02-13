@@ -159,6 +159,9 @@ filekit-dialogs = { module = "io.github.vinceglb:filekit-dialogs", version.ref =
 ktor-bom = { module = "io.ktor:ktor-bom", version.ref = "ktor" }
 ktor-client-core = { module = "io.ktor:ktor-client-core" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation" }
+ktor-serialization-json = { module = "io.ktor:ktor-serialization-kotlinx-json" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging" }
 
 # Test
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -172,5 +175,5 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 koin-compiler = { id = "io.insert-koin.compiler.plugin", version.ref = "koin-plugin" }
-google-services = { id = "com.google.gms:google-services", version.ref = "gms-plugin" }
+google-services = { id = "com.google.gms.google-services", version.ref = "gms-plugin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
