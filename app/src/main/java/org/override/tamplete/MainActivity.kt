@@ -16,7 +16,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.koin.compose.viewmodel.koinViewModel
 import org.override.tamplete.core.ui.theme.AppTheme
 import org.override.tamplete.feature.navigation.wrappers.RootNavigationWrapper
-import org.override.tamplete.feature.settings.presentation.SplashScreenConfigurator
+import org.override.tamplete.feature.settings.domain.SplashScreenConfigurator
 import org.override.tamplete.main.MainViewModel
 
 /**

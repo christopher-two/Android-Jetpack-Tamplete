@@ -1,6 +1,7 @@
 package org.override.tamplete.feature.navigation.controllers
 
 import androidx.navigation3.runtime.NavKey
+import org.override.tamplete.feature.navigation.navigator.GlobalNavigator
 import org.override.tamplete.feature.navigation.navigator.HomeNavigator
 import org.override.tamplete.feature.navigation.routes.AppTab
 import org.override.tamplete.feature.navigation.routes.RouteGlobal

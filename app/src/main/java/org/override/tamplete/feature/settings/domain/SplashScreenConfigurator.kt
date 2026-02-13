@@ -1,4 +1,4 @@
-package org.override.tamplete.feature.settings.presentation
+package org.override.tamplete.feature.settings.domain
 
 import android.app.Activity
 import android.os.Build
@@ -49,9 +49,9 @@ object SplashScreenConfigurator {
             if (!preferences.useDynamicColors) {
                 // Usar el color semilla como fondo del splash
                 val backgroundColor = if (preferences.isDarkMode) {
-                    Color.Black
+                    Color.Companion.Black
                 } else {
-                    Color.White
+                    Color.Companion.White
                 }
 
                 // Configurar el color de fondo
@@ -80,9 +80,9 @@ object SplashScreenConfigurator {
 
         // Configurar colores de las barras
         val systemBarsColor = if (preferences.isDarkMode) {
-            Color.Black.toArgb()
+            Color.Companion.Black.toArgb()
         } else {
-            Color.White.toArgb()
+            Color.Companion.White.toArgb()
         }
 
         // Usar API deprecated pero necesaria para compatibilidad
@@ -116,4 +116,3 @@ object SplashScreenConfigurator {
         }
     }
 }
-

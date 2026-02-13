@@ -1,4 +1,4 @@
-package org.override.tamplete.feature.navigation.controllers
+package org.override.tamplete.feature.navigation.navigator
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.navigation3.runtime.NavKey
