@@ -1,6 +1,9 @@
 package org.override.tamplete.core.data.local
 
+import androidx.room.Dao
 import androidx.room.Database
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import androidx.room.RoomDatabase
 
 /**
@@ -16,27 +19,18 @@ import androidx.room.RoomDatabase
  */
 @Database(
     entities = [
-        // Aquí se agregan las entidades (tablas)
-        // Ejemplo: UserEntity::class, ProductEntity::class
+        User::class
     ],
     version = 1,
     exportSchema = false
 )
-// @TypeConverters: Para convertir tipos de datos complejos a tipos que Room puede manejar
-// Ejemplo: @TypeConverters(DateConverter::class, ListConverter::class)
 abstract class AppDatabase : RoomDatabase() {
-
-    /**
-     * Aquí se definen los DAOs (Data Access Objects)
-     * Los DAOs proporcionan métodos para acceder a los datos de la base de datos
-     *
-     * Ejemplo:
-     * abstract fun userDao(): UserDao
-     * abstract fun productDao(): ProductDao
-     */
-
     companion object {
         const val DATABASE_NAME = "tamplete_database"
     }
 }
 
+@Entity
+data class User(
+    @PrimaryKey(autoGenerate = true) val id: Int
+)

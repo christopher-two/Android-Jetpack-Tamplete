@@ -59,7 +59,6 @@ class MainActivity : ComponentActivity() {
 
             // Aplicar tema con las preferencias del usuario
             AppTheme(preferences = state.themePreferences) {
-                // Contenido de la aplicación
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center

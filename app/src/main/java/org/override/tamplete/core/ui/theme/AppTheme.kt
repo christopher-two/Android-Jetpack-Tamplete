@@ -1,24 +1,19 @@
 package org.override.tamplete.core.ui.theme
 
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.MotionScheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import com.materialkolor.Contrast
 import com.materialkolor.DynamicMaterialExpressiveTheme
 import com.materialkolor.PaletteStyle
 import com.materialkolor.dynamiccolor.ColorSpec
 import com.materialkolor.rememberDynamicMaterialThemeState
-import com.materialkolor.scheme.DynamicScheme
 import org.override.tamplete.feature.settings.domain.model.ThemePreferences
 import org.override.tamplete.feature.settings.domain.model.ThemePreferences.Companion.toColor
 import org.override.tamplete.feature.settings.domain.model.ThemePreferences.Companion.toPaletteStyle
@@ -44,62 +39,33 @@ import org.override.tamplete.feature.settings.domain.model.ThemePreferences.Comp
 @Composable
 fun AppTheme(
     isDark: Boolean = isSystemInDarkTheme(),
-    seedColor: Color = Color(0xffffffff),
+    seedColor: Color = Color(0xFF6750A4),
     style: PaletteStyle = PaletteStyle.Expressive,
     contrastLevel: Double = Contrast.Default.value,
     useDynamicColors: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val context = LocalContext.current
+    val dynamicThemeState = rememberDynamicMaterialThemeState(
+        seedColor = seedColor,
+        isDark = isDark,
+        style = style,
+        contrastLevel = contrastLevel,
+        specVersion = ColorSpec.SpecVersion.SPEC_2025
+    )
 
-    // Determinar si usar colores dinámicos (solo Android 12+)
-    val supportsDynamicColors = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-    val shouldUseDynamicColors = useDynamicColors && supportsDynamicColors
-
-    // Si usamos colores dinámicos, obtenerlos del sistema
-    if (shouldUseDynamicColors) {
-        val dynamicColorScheme = if (isDark) {
-            dynamicDarkColorScheme(context)
-        } else {
-            dynamicLightColorScheme(context)
-        }
-
-        androidx.compose.material3.MaterialTheme(
-            colorScheme = dynamicColorScheme,
-            content = {
-                Surface(
-                    color = colorScheme.background,
-                    contentColor = colorScheme.onBackground,
-                    modifier = Modifier.fillMaxSize(),
-                    content = content
-                )
-            }
-        )
-    } else {
-        // Usar colores personalizados con Material Kolor
-        val dynamicThemeState = rememberDynamicMaterialThemeState(
-            seedColor = seedColor,
-            isDark = isDark,
-            style = style,
-            contrastLevel = contrastLevel,
-            specVersion = ColorSpec.SpecVersion.SPEC_2025,
-            platform = DynamicScheme.Platform.PHONE
-        )
-
-        DynamicMaterialExpressiveTheme(
-            state = dynamicThemeState,
-            motionScheme = MotionScheme.expressive(),
-            animate = true,
-            content = {
-                Surface(
-                    color = colorScheme.background,
-                    contentColor = colorScheme.onBackground,
-                    modifier = Modifier.fillMaxSize(),
-                    content = content
-                )
-            },
-        )
-    }
+    DynamicMaterialExpressiveTheme(
+        state = dynamicThemeState,
+        motionScheme = MotionScheme.expressive(),
+        animate = true,
+        content = {
+            Surface(
+                color = colorScheme.background,
+                contentColor = colorScheme.onBackground,
+                modifier = Modifier.fillMaxSize(),
+                content = content
+            )
+        },
+    )
 }
 
 /**

@@ -1,6 +1,7 @@
 package org.override.tamplete.feature.settings.domain.model
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.colorspace.ColorSpaces
 import com.materialkolor.Contrast
 import com.materialkolor.PaletteStyle
 import kotlinx.serialization.Serializable
@@ -21,7 +22,7 @@ import kotlinx.serialization.Serializable
 data class ThemePreferences(
     val isDarkMode: Boolean = false,
     val useDynamicColors: Boolean = true,
-    val seedColor: Long = 0xFFFFFFFF, // Blanco por defecto (formato ARGB)
+    val seedColor: Long = 0xFF6750A4, // Color primario Material3 por defecto (formato ARGB)
     val paletteStyle: String = PaletteStyle.Expressive.name,
     val contrastLevel: Double = Contrast.Default.value
 ) {
@@ -33,9 +34,46 @@ data class ThemePreferences(
 
         /**
          * Convierte el Long a Color de Compose
+         * Asegura que el valor esté en el rango válido de ARGB y usa el espacio de color sRGB
          */
         fun ThemePreferences.toColor(): Color {
-            return Color(seedColor.toULong())
+            // Lista de valores problemáticos que causan crashes
+            val invalidColors = setOf(
+                0xFFFFFFFF, // Blanco puro
+                0xFF000000, // Negro puro
+            )
+
+            // Si el color es inválido, usar el color por defecto
+            if (seedColor in invalidColors) {
+                return Color(0xFF6750A4)
+            }
+
+            // Aseguramos que el valor tenga el canal alpha en FF si no está especificado
+            val argbValue = if (seedColor and 0xFF000000 == 0L) {
+                seedColor or 0xFF000000
+            } else {
+                seedColor
+            }
+
+            return try {
+                // Extraer componentes ARGB
+                val alpha = ((argbValue shr 24) and 0xFF) / 255f
+                val red = ((argbValue shr 16) and 0xFF) / 255f
+                val green = ((argbValue shr 8) and 0xFF) / 255f
+                val blue = (argbValue and 0xFF) / 255f
+
+                // Crear color explícitamente en espacio de color sRGB
+                Color(
+                    red = red,
+                    green = green,
+                    blue = blue,
+                    alpha = alpha,
+                    colorSpace = ColorSpaces.Srgb
+                )
+            } catch (_: Exception) {
+                // En caso de cualquier error, retornar el color por defecto
+                Color(0xFF6750A4)
+            }
         }
 
         /**
