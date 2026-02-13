@@ -2,6 +2,7 @@ package org.override.tamplete.di
 
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
+import org.override.tamplete.feature.settings.data.local.ThemePreferencesRepository
 import org.override.tamplete.feature.auth.data.local.UserPreferencesRepository
 import org.override.tamplete.feature.auth.domain.repository.UserRepository
 
@@ -20,6 +21,14 @@ val dataStoreModule = module {
      */
     single<UserRepository> {
         UserPreferencesRepository(androidContext())
+    }
+
+    /**
+     * ThemePreferencesRepository - Gestión de preferencias del tema
+     * Maneja la persistencia de configuraciones de UI (tema oscuro, colores, etc.)
+     */
+    single<ThemePreferencesRepository> {
+        ThemePreferencesRepository(androidContext())
     }
 
     // Agregar más repositorios de DataStore aquí:

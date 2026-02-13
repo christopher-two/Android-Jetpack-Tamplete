@@ -26,7 +26,7 @@ coil-compose = "3.3.0"
 coil-network = "3.3.0"
 
 # UI
-material-kolor = "4.1.1"
+material-kolor = "5.0.0-alpha06"
 material-icons-ext = "1.7.8"
 core-splashscreen = "1.2.0"
 qrose = "1.1.2"

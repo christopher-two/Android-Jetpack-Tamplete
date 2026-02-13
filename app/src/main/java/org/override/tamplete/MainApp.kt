@@ -1,4 +1,4 @@
-package org.override.tamplete.main
+package org.override.tamplete
 
 import android.app.Application
 import org.koin.android.ext.koin.androidContext

@@ -1,5 +1,7 @@
 package org.override.tamplete.main
 
+import org.override.tamplete.feature.settings.domain.model.ThemePreferences
+
 /**
  * MAIN STATE - Estado de la pantalla principal
  *
@@ -32,6 +34,12 @@ data class MainState(
     /**
      * Información adicional del usuario (opcional)
      */
-    val userName: String? = null
+    val userName: String? = null,
+
+    /**
+     * Preferencias del tema de la aplicación
+     * Contiene configuración de colores, modo oscuro, etc.
+     */
+    val themePreferences: ThemePreferences = ThemePreferences.default()
 )
 

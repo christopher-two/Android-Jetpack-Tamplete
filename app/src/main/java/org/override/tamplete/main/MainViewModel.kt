@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.override.tamplete.feature.settings.data.local.ThemePreferencesRepository
 import org.override.tamplete.feature.auth.domain.repository.UserRepository
 
 /**
@@ -18,9 +19,11 @@ import org.override.tamplete.feature.auth.domain.repository.UserRepository
  * Controla la carga inicial y el SplashScreen
  *
  * @param userRepository Interfaz del repositorio (no depende de implementación concreta)
+ * @param themePreferencesRepository Repositorio de preferencias del tema
  */
 class MainViewModel(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val themePreferencesRepository: ThemePreferencesRepository
 ) : ViewModel() {
 
     // Estado privado mutable
@@ -59,8 +62,9 @@ class MainViewModel(
                 // Actualizar estado a cargando
                 _state.update { it.copy(isLoading = true, errorMessage = null) }
 
-                // Simular carga mínima para el splash
-                delay(1500)
+                // Cargar preferencias del tema PRIMERO (para evitar flickering)
+                val themePreferences = themePreferencesRepository.themePreferencesFlow.first()
+                _state.update { it.copy(themePreferences = themePreferences) }
 
                 // Verificar autenticación desde DataStore
                 val isAuthenticated = checkUserAuthentication()
