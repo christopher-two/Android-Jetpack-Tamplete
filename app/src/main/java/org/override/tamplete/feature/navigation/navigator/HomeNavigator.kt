@@ -6,14 +6,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.navigation3.runtime.NavKey
 import org.override.tamplete.feature.navigation.routes.AppTab
-import org.override.tamplete.feature.navigation.routes.RoutesHome
+import org.override.tamplete.feature.navigation.routes.RouteHome
 
 class HomeNavigator {
     var currentTab by mutableStateOf(AppTab.Screen1)
         private set
 
     private val stacks = mapOf(
-        AppTab.Screen1 to mutableStateListOf<NavKey>(RoutesHome.Pantalla1)
+        AppTab.Screen1 to mutableStateListOf<NavKey>(RouteHome.Pantalla1)
     )
 
     val currentStack: List<NavKey>
