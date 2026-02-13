@@ -35,6 +35,7 @@ cd MiNuevoProyecto
 - ✅ **MVI (Model-View-Intent)** - Arquitectura unidireccional
 - ✅ **Clean Architecture** - Separación por capas
 - ✅ **SOLID Principles** - Código mantenible y escalable
+- ✅ **Generador de Features** - Crea features MVI automáticamente
 
 ### 🎨 UI/UX
 - ✅ **Jetpack Compose** - UI declarativa moderna
@@ -133,6 +134,7 @@ En lugar de renombrar manualmente carpetas y buscar/reemplazar en múltiples arc
 | Documento | Descripción |
 |-----------|-------------|
 | [🚀 Inicialización del Template](Docs/INIT_TEMPLATE.md) | Guía completa de uso del sistema de inicialización |
+| [⚡ Generador de Features](Docs/FEATURE_GENERATOR.md) | Generación automática de features MVI |
 | [🏗️ Arquitectura MVI](Docs/ARQUITECTURA_MVI.md) | Explicación de la arquitectura implementada |
 | [🔥 Firebase Setup](Docs/FIREBASE_SETUP.md) | Configuración opcional de Firebase |
 | [🛡️ ProGuard](Docs/PROGUARD.md) | Configuración de ofuscación |
@@ -204,7 +206,7 @@ File → Sync Project with Gradle Files
 
 El proyecto está listo. Puedes:
 
-- Agregar nuevas features en `feature/`
+- **Generar nuevas features automáticamente** con `./Scripts/generate-feature.sh` ([Ver guía](Docs/FEATURE_GENERATOR.md))
 - Modificar el tema en `core/ui/theme/`
 - Configurar Firebase (opcional) según [esta guía](Docs/FIREBASE_SETUP.md)
 - Personalizar el SplashScreen
