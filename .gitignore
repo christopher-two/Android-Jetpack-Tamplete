@@ -13,3 +13,8 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Firebase - Archivo de configuración sensible
+google-services.json
+app/google-services.json
+

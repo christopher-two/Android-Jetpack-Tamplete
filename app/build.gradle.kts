@@ -3,9 +3,19 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.koin.compiler)
-    alias(libs.plugins.google.services)
     alias(libs.plugins.ksp)
 }
+
+// Aplicar Google Services solo si existe el archivo google-services.json
+val googleServicesFile = file("google-services.json")
+if (googleServicesFile.exists()) {
+    apply(plugin = libs.plugins.google.services.get().pluginId)
+    println("✅ Google Services habilitado - google-services.json encontrado")
+} else {
+    println("⚠️  Google Services deshabilitado - google-services.json no encontrado")
+    println("   Para habilitar Firebase, agrega el archivo google-services.json en app/")
+}
+
 val nameProject = "tamplete"
 
 android {
@@ -28,11 +38,19 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            // Habilitar minificación y ofuscación de código
+            isMinifyEnabled = true
+            // Reducir recursos no utilizados
+            isShrinkResources = true
+            // Archivos de configuración ProGuard
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+        debug {
+            // Desactivar en modo debug para facilitar el desarrollo
+            isMinifyEnabled = false
         }
     }
     compileOptions {
@@ -101,11 +119,14 @@ dependencies {
     implementation(libs.ktor.serialization.json)
     implementation(libs.ktor.client.logging)
 
-    // ==================== FIREBASE ====================
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.auth)
-    implementation(libs.firebase.firestore)
-    implementation(libs.firebase.ai)
+    // ==================== FIREBASE (OPCIONAL) ====================
+    // Solo se incluye si google-services.json existe
+    if (googleServicesFile.exists()) {
+        implementation(platform(libs.firebase.bom))
+        implementation(libs.firebase.auth)
+        implementation(libs.firebase.firestore)
+        implementation(libs.firebase.ai)
+    }
 
     // ==================== GOOGLE SERVICES ====================
     implementation(libs.gms.auth)
